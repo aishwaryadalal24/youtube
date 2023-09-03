@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import Footer from '../src/components/Footer';
+import Header from './components/Header';
+import Body from './components/Body';
+import VideoPage from './components/VideoPage';
+import store from "../src/utils/store";
+import { Provider } from "react-redux";
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import VideosContainer from './components/VideosContainer';
 
-function App() {
+function AppLayout() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store} className='m-5'>
+      <Header/>
+      <Outlet/>
+      <Footer/>
+    </Provider>
   );
 }
+
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout/>,
+    children: [
+      {
+        path: "/",
+        element: <Body/>,
+        children: [
+          {
+            path: "/",
+            element: <VideosContainer/>
+          },
+          {
+            path: "/video/:id",
+            element: <VideoPage/>
+          }
+        ]
+      },
+    ]
+  }
+]);
+
+const  App = () => <RouterProvider router={appRouter} />
 
 export default App;

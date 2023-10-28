@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import VideoCard from './VideoCard';
 import { Link } from 'react-router-dom';
+import CategoryButton from './CategoryButton';
+
+const buttonList = ['All', 'Mixes', 'Music', 'Games', 'Reels', 'T-Series', 'Films', 'News', 'Podcats']
 
 const VideosContainer = () => {
 
@@ -17,8 +20,9 @@ const VideosContainer = () => {
     const [videosList, setVideosList] = useState([]);
 
     return (
-    <div className='flex flex-wrap'>
-        {videosList.map(video => <Link to={"/video/"+ video.id}><VideoCard video={video}/></Link>)}
+    <div className='flex flex-col'>
+        <div className='flex flex-row'>{buttonList.map(buttonText=> <CategoryButton categoryName={buttonText}/>)}</div>
+        <div className='flex flex-wrap'>{videosList.map(video => <Link to={"/video/"+ video.id}><VideoCard video={video}/></Link>)}</div>
     </div>)
 }
 

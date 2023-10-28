@@ -1,25 +1,19 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import useVideo from "../utils/Hooks/useVideo";
+import { useDispatch } from "react-redux";
+import { closeSidebar } from "../utils/sidebarSlice";
+import CommentsContainer from "./CommentsContainer";
 
 const VideoPage = () => {
     const { id } = useParams();
 
-    const [videoDetails, setVideoDetails] = useState({});
-
-    useEffect(() => {
-        getVideoDetails();
-    }, []);
-
-
-    async function getVideoDetails() {
-        const data= await fetch('https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id='+ id +'&key=AIzaSyCLWzMvBFHSaymKgHSAjY6QNcSl5-xV4F8');
-        const json = await data.json();
-        setVideoDetails(json.items[0]);
-        console.log(videoDetails)
-    }
+    const videoDetails = useVideo(id);
+    const dispatch = useDispatch();
+    dispatch(closeSidebar());
 
     return (
-        <div className="m-10 p-5 rounded">
+    <div className="m-10 p-5 flex flex-col">
+        <div className="rounded">
             <iframe
                 width= "1000"
                 height="500"
@@ -33,6 +27,8 @@ const VideoPage = () => {
             <h3 className="font-semibold text-gray-500">{videoDetails?.snippet?.channelTitle}</h3>
             <h4> Views - {videoDetails?.statistics?.viewCount}</h4>
         </div>
+        <CommentsContainer/>
+    </div>
     );
 };
 

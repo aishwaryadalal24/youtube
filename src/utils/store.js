@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import sidebarSlice from "./sidebarSlice";
+import searchQueryCacheSlice from "./searchQueryCacheSlice";
 
 const store = configureStore({
     reducer: {
-       sidebar: sidebarSlice
+       sidebar: sidebarSlice,
+       searchQueryCache: searchQueryCacheSlice
     }
 });
 

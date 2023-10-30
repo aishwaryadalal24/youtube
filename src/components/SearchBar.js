@@ -4,9 +4,9 @@ import { storeToCache } from "../utils/searchQueryCacheSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const SearchSuggessionItem = ({result}) => {
+const SearchSuggessionItem = ({result, index}) => {
     return (
-        <li className="list-none p-2 border border-gray-200 hover:bg-gray-200">
+        <li key={index} className="list-none p-2 border border-gray-200 hover:bg-gray-200">
             {result}
         </li>
     )
@@ -41,6 +41,20 @@ const SearchBar = () => {
         }
     }
 
+    const handleBlur = () => {
+        const blurTimeout = setTimeout(() => {
+            setShowSuggessions(false);
+        }, 1000);
+    };
+    
+    const handleClickListItem = (e) => {
+        setSearchQuery(e.target.outerText);
+        clearTimeout(setTimeout(() => {
+            setShowSuggessions(false)
+        }, 1000));
+        setShowSuggessions(false);
+    };
+
     return (
     <div>
         <div className="flex">
@@ -51,16 +65,18 @@ const SearchBar = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onFocus={() => setShowSuggessions(true)}
-                    onBlur={() => setShowSuggessions(false)}
+                    onBlur={() => handleBlur()}
                 />
             </div>
             <button className="py-2"><img className="h-10 my-2 rounded-r-full hover:shadow-lg" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTjtA8CqZMqf2l1KU0-A1iEc1-DSgnMNGKCQ&usqp=CAU'/></button>
         </div>
         {showSuggessions &&
-            (<div className="fixed" onClick={() => setShowSuggessions(false)}>
-                <ul className="bg-white w-96 rounded-lg shadow-md">
-                    {suggessions.map(s => <SearchSuggessionItem  result={s}/>)}
-                </ul>
+            (<div className="fixed">
+                <Link onClick={(e) => handleClickListItem(e)} to={"/results/" + searchQuery}>
+                    <ul className="bg-white w-96 rounded-lg shadow-md">
+                        {suggessions.map((s,index) => <SearchSuggessionItem  key={index} result={s}/>)}
+                    </ul>
+                </Link>
             </div>)
         }
     </div>

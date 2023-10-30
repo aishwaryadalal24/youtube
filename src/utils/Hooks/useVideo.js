@@ -8,7 +8,7 @@ const useVideo = ( id ) => {
     }, []);
 
     async function getVideoDetails() {
-        const data= await fetch('https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id='+ id +'&key=AIzaSyCLWzMvBFHSaymKgHSAjY6QNcSl5-xV4F8');
+        const data= await fetch('https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id='+ id +'&key=AIzaSyC37Jx_26xkDXhWKFCwLSQLIXx7a2Wj9Ac');
         const json = await data.json();
         setVideo(json.items[0]);
     } 

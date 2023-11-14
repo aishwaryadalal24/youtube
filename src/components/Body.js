@@ -1,4 +1,3 @@
-import VideosContainer from './VideosContainer';
 import Sidebar from './Sidebar';
 import { Outlet } from 'react-router-dom';
 

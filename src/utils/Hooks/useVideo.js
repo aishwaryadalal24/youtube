@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 const useVideo = ( id ) => {
     const [video, setVideo] = useState({});
-    console.log(id);
     useEffect(() => {
         getVideoDetails();
     }, []);

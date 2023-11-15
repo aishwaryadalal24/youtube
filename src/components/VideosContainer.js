@@ -12,7 +12,7 @@ const VideosContainer = () => {
      }, []);
 
      async function getVideosList() {
-         const data = await fetch('https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=50&chart=mostPopular&regionCode=IN&key=AIzaSyC37Jx_26xkDXhWKFCwLSQLIXx7a2Wj9Ac');
+         const data = await fetch('https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&maxResults=50&chart=mostPopular&regionCode=IN&key=AIzaSyDXCReieqz1i3SeITX6jz8wn5Uuja-KmEk');
          const json = await data.json();
          setVideosList(json?.items);
      };

@@ -11,7 +11,7 @@ const SearchResultsPage = () => {
     }, [query]);
 
     async function getSearchResults() {
-        const data = await fetch('https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=' +query+'&type=video&key=AIzaSyC37Jx_26xkDXhWKFCwLSQLIXx7a2Wj9Ac');
+        const data = await fetch('https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=' +query+'&type=video&key=AIzaSyDXCReieqz1i3SeITX6jz8wn5Uuja-KmEk');
         const json = await data.json();
         setResultsList(json?.items);
     }
